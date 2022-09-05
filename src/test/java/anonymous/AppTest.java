@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.pholser.junit.quickcheck.From;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -12,20 +13,24 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Parameterized.Parameter;
 import anonymous.App;
+import anonymous.Con;
+import anonymous.ConGenerator;
 
 @RunWith(Parameterized.class)
 public class AppTest {
 
   @Parameter(0)
-  public int a;
+  @From(ConGenerator.class)
+  public Con a;
+
   @Parameter(1)
   public int b;
   
   @Parameters
   public static Collection params() {
       return Arrays.asList(new Object[][] {
-          {1, 2},
-          {-1, 2}
+          {new Con(1), 2},
+          {new Con(-1), 2}
       });
   }
   
@@ -34,20 +39,11 @@ public class AppTest {
   @Test 
   public void t2() 
   { 
-      if (a > 0)
-          assertTrue(App.m(a, b) == a+b);
+      if (a.key > 0)
+          assertTrue(App.m(a.key, b) == a.key+b);
       else
-          assertTrue(App.m(a, b) == a*a*b*b);
+          assertTrue(App.m(a.key, b) == a.key*a.key*b*b);
   }
 
-  @Test 
-  public void t1() 
-  { 
-  }
 
-  @Test 
-  public void t3() 
-  { 
-      while(true){}
-  }
 }

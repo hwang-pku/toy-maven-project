@@ -22,5 +22,5 @@ jobs:
 
       - name: Run Bash Script
         run: |
-          chmod +x helloworld.sh
-          ./helloworld.sh
+          chmod +x src/helloworld.sh
+          cd src && ./helloworld.sh
